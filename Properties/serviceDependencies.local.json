@@ -1,0 +1,8 @@
+{
+  "dependencies": {
+    "mssql1": {
+      "type": "mssql.local",
+      "connectionId": "Andrada_Pop_Lab8Context"
+    }
+  }
+}
