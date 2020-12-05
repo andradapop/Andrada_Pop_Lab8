@@ -1,5 +1,5 @@
 ﻿@page
-@model Andrada_Pop_Lab8.Pages.Categories.IndexModel
+@model Andrada_Pop_Lab8.Pages.BookCategories.IndexModel
 
 @{
     ViewData["Title"] = "Index";
@@ -14,19 +14,23 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Category[0].CategoryName)
+                @Html.DisplayNameFor(model => model.BookCategory[0].Book)
             </th>
-            
+            <th>
+                @Html.DisplayNameFor(model => model.BookCategory[0].Category)
+            </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model.Category) {
+@foreach (var item in Model.BookCategory) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.CategoryName)
+                @Html.DisplayFor(modelItem => item.Book.ID)
             </td>
-            
+            <td>
+                @Html.DisplayFor(modelItem => item.Category.ID)
+            </td>
             <td>
                 <a asp-page="./Edit" asp-route-id="@item.ID">Edit</a> |
                 <a asp-page="./Details" asp-route-id="@item.ID">Details</a> |

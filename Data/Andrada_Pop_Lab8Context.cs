@@ -18,6 +18,9 @@ namespace Andrada_Pop_Lab8.Data
 
         public DbSet<Andrada_Pop_Lab8.Models.Publisher> Publisher { get; set; }
 
+        public DbSet<Andrada_Pop_Lab8.Models.Category> Category { get; set; }
+
+
         public DbSet<Andrada_Pop_Lab8.Models.BookCategory> BookCategory { get; set; }
     }
 }

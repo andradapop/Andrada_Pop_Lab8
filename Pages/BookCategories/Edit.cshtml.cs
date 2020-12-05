@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using Andrada_Pop_Lab8.Data;
 using Andrada_Pop_Lab8.Models;
 
-namespace Andrada_Pop_Lab8.Pages.Categories
+namespace Andrada_Pop_Lab8.Pages.BookCategories
 {
     public class EditModel : PageModel
     {
@@ -21,7 +21,7 @@ namespace Andrada_Pop_Lab8.Pages.Categories
         }
 
         [BindProperty]
-        public Category Category { get; set; }
+        public BookCategory BookCategory { get; set; }
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -30,16 +30,16 @@ namespace Andrada_Pop_Lab8.Pages.Categories
                 return NotFound();
             }
 
-            Category = await _context.Category.FirstOrDefaultAsync(m => m.ID == id);
-                //.Include(b => b.Book)
-               // .Include(b => b.Category).FirstOrDefaultAsync(m => m.ID == id);
+            BookCategory = await _context.BookCategory
+                .Include(b => b.Book)
+                .Include(b => b.Category).FirstOrDefaultAsync(m => m.ID == id);
 
-            if (Category == null)
+            if (BookCategory == null)
             {
                 return NotFound();
             }
-           //ViewData["BookID"] = new SelectList(_context.Book, "ID", "ID");
-          // ViewData["CategoryID"] = new SelectList(_context.Set<Category>(), "ID", "ID");
+           ViewData["BookID"] = new SelectList(_context.Book, "ID", "ID");
+           ViewData["CategoryID"] = new SelectList(_context.Set<Category>(), "ID", "ID");
             return Page();
         }
 
@@ -52,7 +52,7 @@ namespace Andrada_Pop_Lab8.Pages.Categories
                 return Page();
             }
 
-            _context.Attach(Category).State = EntityState.Modified;
+            _context.Attach(BookCategory).State = EntityState.Modified;
 
             try
             {
@@ -60,7 +60,7 @@ namespace Andrada_Pop_Lab8.Pages.Categories
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!CategoryExists(Category.ID))
+                if (!BookCategoryExists(BookCategory.ID))
                 {
                     return NotFound();
                 }
@@ -73,7 +73,7 @@ namespace Andrada_Pop_Lab8.Pages.Categories
             return RedirectToPage("./Index");
         }
 
-        private bool CategoryExists(int id)
+        private bool BookCategoryExists(int id)
         {
             return _context.BookCategory.Any(e => e.ID == id);
         }

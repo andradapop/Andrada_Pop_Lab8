@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Andrada_Pop_Lab8.Data;
 using Andrada_Pop_Lab8.Models;
 
-namespace Andrada_Pop_Lab8.Pages.Publishers
+namespace Andrada_Pop_Lab8.Pages.BookCategories
 {
     public class CreateModel : PageModel
     {
@@ -21,11 +21,13 @@ namespace Andrada_Pop_Lab8.Pages.Publishers
 
         public IActionResult OnGet()
         {
+        ViewData["BookID"] = new SelectList(_context.Book, "ID", "ID");
+        ViewData["CategoryID"] = new SelectList(_context.Set<Category>(), "ID", "ID");
             return Page();
         }
 
         [BindProperty]
-        public Publisher Publisher { get; set; }
+        public BookCategory BookCategory { get; set; }
 
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://aka.ms/RazorPagesCRUD.
@@ -36,7 +38,7 @@ namespace Andrada_Pop_Lab8.Pages.Publishers
                 return Page();
             }
 
-            _context.Publisher.Add(Publisher);
+            _context.BookCategory.Add(BookCategory);
             await _context.SaveChangesAsync();
 
             return RedirectToPage("./Index");

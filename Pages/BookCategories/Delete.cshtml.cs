@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Andrada_Pop_Lab8.Data;
 using Andrada_Pop_Lab8.Models;
 
-namespace Andrada_Pop_Lab8.Pages.Categories
+namespace Andrada_Pop_Lab8.Pages.BookCategories
 {
     public class DeleteModel : PageModel
     {
@@ -20,7 +20,7 @@ namespace Andrada_Pop_Lab8.Pages.Categories
         }
 
         [BindProperty]
-        public Category Category { get; set; }
+        public BookCategory BookCategory { get; set; }
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -29,11 +29,11 @@ namespace Andrada_Pop_Lab8.Pages.Categories
                 return NotFound();
             }
 
-            Category = await _context.Category.FirstOrDefaultAsync(m => m.ID == id);
-                //.Include(b => b.Book)
-                //.Include(b => b.Category).FirstOrDefaultAsync(m => m.ID == id);
+            BookCategory = await _context.BookCategory
+                .Include(b => b.Book)
+                .Include(b => b.Category).FirstOrDefaultAsync(m => m.ID == id);
 
-            if (Category == null)
+            if (BookCategory == null)
             {
                 return NotFound();
             }
@@ -47,11 +47,11 @@ namespace Andrada_Pop_Lab8.Pages.Categories
                 return NotFound();
             }
 
-            Category = await _context.Category.FindAsync(id);
+            BookCategory = await _context.BookCategory.FindAsync(id);
 
-            if (Category != null)
+            if (BookCategory != null)
             {
-                _context.Category.Remove(Category);
+                _context.BookCategory.Remove(BookCategory);
                 await _context.SaveChangesAsync();
             }
 

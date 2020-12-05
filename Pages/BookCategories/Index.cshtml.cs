@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Andrada_Pop_Lab8.Data;
 using Andrada_Pop_Lab8.Models;
 
-namespace Andrada_Pop_Lab8.Pages.Publishers
+namespace Andrada_Pop_Lab8.Pages.BookCategories
 {
     public class IndexModel : PageModel
     {
@@ -19,11 +19,13 @@ namespace Andrada_Pop_Lab8.Pages.Publishers
             _context = context;
         }
 
-        public IList<Publisher> Publisher { get;set; }
+        public IList<BookCategory> BookCategory { get;set; }
 
         public async Task OnGetAsync()
         {
-            Publisher = await _context.Publisher.ToListAsync();
+            BookCategory = await _context.BookCategory
+                .Include(b => b.Book)
+                .Include(b => b.Category).ToListAsync();
         }
     }
 }
